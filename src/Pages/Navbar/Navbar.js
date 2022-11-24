@@ -1,44 +1,57 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
-const menuItems = (
-  <>
-    <li>
-      <Link to="/">Home</Link>
-    </li>
-    <li>
-      <Link to="/orders">My Orders</Link>
-    </li>
-    <li>
-      <Link to="/blog">Blog</Link>
-    </li>
-    <li>
-      <Link to="/login">Login</Link>
-    </li>
-    {/* {user?.uid ? (
-       <>
-       <li>
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        <li>
-          <Link>
-            <button onClick={handleLogOut} className="btn btn-outline btn-primary">logOut</button>
-          </Link>
-        </li>
-        
-       </>
-        
-      ) : (
-        <li>
-          <Link to="/login">
-            <button className="btn btn-outline btn-primary">Login</button>
-          </Link>
-        </li>
-      )} */}
-  </>
-);
+
 
 const Navbar = () => {
+  const {user} = useContext(AuthContext)
+  const current = new Date();
+  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
+  const menuItems = (
+    <>
+      <li>
+        <Link to="/">{date}</Link>
+      </li>
+      <li>
+        <Link to="/">{user?.displayName}</Link>
+      </li>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/orders">My Orders</Link>
+      </li>
+      <li>
+        <Link to="/blog">Blog</Link>
+      </li>
+      <li>
+        <Link to="/login">Login</Link>
+      </li>
+      {/* {user?.uid ? (
+         <>
+         <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <Link>
+              <button onClick={handleLogOut} className="btn btn-outline btn-primary">logOut</button>
+            </Link>
+          </li>
+          
+         </>
+          
+        ) : (
+          <li>
+            <Link to="/login">
+              <button className="btn btn-outline btn-primary">Login</button>
+            </Link>
+          </li>
+        )} */}
+    </>
+  );
+
   return (
     <div className="navbar bg-blue-600 flex justify-between">
       <div className="navbar-start">
