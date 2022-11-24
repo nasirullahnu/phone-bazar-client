@@ -9,24 +9,29 @@ const auth = getAuth(app)
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState({displayName : 'Nasir Ullah'})
+    const [loading, setLoading] = useState(true)
 
     // create user with email and password 
     const createUser = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     // login user with email and password 
     const logIn = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
     }
 
     // update user and get user name 
     const updateUser = (userInfo) => {
+        setLoading(true)
         return updateProfile(auth.currentUser, userInfo);
     }
 
     // create user with google sign up 
     const googleSignin = (provider) => {
+        setLoading(true)
         return signInWithPopup(auth, provider);
     }
 
@@ -39,6 +44,7 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) =>{
              console.log(currentUser)
              setUser(currentUser)
+             setLoading(false)
          })
          return ()=> unsubscribe();
      },[])
@@ -50,6 +56,7 @@ const AuthProvider = ({children}) => {
         googleSignin,
         updateUser,
         logOut,
+        loading 
     }
 
     return (
