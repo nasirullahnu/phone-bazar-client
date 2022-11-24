@@ -24,7 +24,9 @@ const Signup = () => {
               }
               console.log(userInfo)
               updateUser(userInfo)
-              .then(()=>{})
+              .then(()=>{
+                saveUser(data.name, data.email, data.role)
+              })
               .catch(error => console.error(error))
         })
         .catch(error => {
@@ -32,6 +34,22 @@ const Signup = () => {
             setSignupError(error)
         })
     }
+
+    const saveUser = (name, email, role) =>{
+        const user = {name, email, role};
+        console.log(user)
+        fetch('http://localhost:5000/allUsers', {
+          method : 'POST',
+          headers : {
+            'content-type' : 'application/json'
+          },
+          body : JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+        })
+      }
 
     return (
         <div className="h-[800px] flex justify-center items-center bg-blue-400 mx-8 my-8">
