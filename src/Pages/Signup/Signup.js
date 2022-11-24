@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -6,8 +7,21 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
     const {register, formState:{errors},  handleSubmit} = useForm();
-    const {user, createUser, updateUser} = useContext(AuthContext)
-    const [signupError, setSignupError] = useState('')
+    const googleProvider = new GoogleAuthProvider();
+    const { createUser, updateUser, googleSignin} = useContext(AuthContext);
+    const [signupError, setSignupError] = useState('');
+
+
+     // sign in with google 
+     const handleGoogleLogin = () => {
+        googleSignin(googleProvider)
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                saveUser(user.displayName, user.email)
+            })
+            .catch(error => console.log(error))
+    }
 
     // sign up with email and password 
     const handleSignUp = data =>{
@@ -35,7 +49,7 @@ const Signup = () => {
         })
     }
 
-    const saveUser = (name, email, role) =>{
+    const saveUser = (name, email, role = 'buyer') =>{
         const user = {name, email, role};
         console.log(user)
         fetch('http://localhost:5000/allUsers', {
@@ -50,6 +64,8 @@ const Signup = () => {
           console.log(data);
         })
       }
+
+
 
     return (
         <div className="h-[800px] flex justify-center items-center bg-blue-400 mx-8 my-8">
@@ -96,7 +112,7 @@ const Signup = () => {
         <p>Already have an Account ? <Link to='/login' className="text-white font-bold">Login</Link></p>
         {signupError && <p className='text-red-500'>{signupError.message}</p>}
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">Continue With Google</button>
+        <button onClick={handleGoogleLogin} className="btn btn-outline w-full">Continue With Google</button>
       </div>
         </div>
     );
