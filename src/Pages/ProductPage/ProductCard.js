@@ -8,14 +8,14 @@ const ProductCard = ({ product }) => {
   const {_id,
      img, title, location, 
      price, orgPrice, used, 
-     postTime, seller, sellerMail} = product
+     postTime, seller, sellerMail, condition} = product
 
      if(loading){
         return <Loading></Loading>
      }
 
   return (
-    <div className="card bg-blue-400 shadow-xl">
+        <div className="card bg-indigo-500 shadow-xl text-white">
       <figure>
         <img className="w-full" src={img} alt="products" />
       </figure>
@@ -23,10 +23,24 @@ const ProductCard = ({ product }) => {
         <h2 className="card-title">
           {title}
         </h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div className="flex mx-0">
+            <p>Price : <span className="font-semibold">{price}</span> tk</p>
+            <p>Real Price : <span className="font-semibold">{orgPrice}</span> tk</p>
+        </div>
+        <div className="flex mx-0">
+            <p>Used : <span className="font-semibold">{used}</span></p>
+            <p>Condition : <span className="font-semibold">{condition}</span></p>
+        </div>
+        <div className="flex mx-0">
+            <p>Posted On : <span className="font-semibold">{postTime}</span></p>
+            <p>Location : <span className="font-semibold">{location}</span></p>
+        </div>
+        <div className="flex mx-0">
+            <p>Owner : <span className="font-semibold">{seller}</span></p>
+        </div><hr></hr>
         <div className="card-actions justify-end">
-          <div className="badge badge-outline">Fashion</div>
-          <div className="badge badge-outline">Products</div>
+          <button className="btn btn-outline">Add To Wishlist</button>
+          <button className="btn btn-outline">Buy Now</button>
         </div>
       </div>
     </div>
