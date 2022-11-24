@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
     const {register, formState:{errors},  handleSubmit} = useForm();
+    const {user, createUser} = useContext(AuthContext)
+    const [signupError, setSignupError] = useState('')
 
+    // sign up with email and password 
     const handleSignUp = data =>{
         console.log(data)
+        createUser(data.email, data.password)
+        .then(result => {
+            const user = result.user;
+            console.log(user)
+        })
+        .catch(error => {
+            console.log(error)
+            setSignupError(error)
+        })
     }
 
     return (
@@ -30,7 +43,7 @@ const Signup = () => {
                 {errors.email && <p className='text-red-500'>{errors.email.message}</p>} 
         </div>
 
-        <div className="form-control w-full max-w-xs mb-6">
+        <div className="form-control w-full max-w-xs">
                 <label className="label"> <span className="label-text">Password</span> </label>
                 <input type="password" {...register('password',{
                     required : "Please Enter Password",
@@ -38,11 +51,21 @@ const Signup = () => {
                 })} className="input input-bordered w-full max-w-xs" />
                 {errors.password && <p className='text-red-500 mt-3'>{errors.password.message}</p>}
         </div>
+        <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text">I want to become a</span> </label>
+                        <select
+                        {...register('role')}
+                         className="select select-bordered w-full max-w-xs mb-2">
+                            <option>seller</option>
+                            <option>buyer</option> 
+                        </select>
+                </div>
           {/* <p>{data}</p> */}
           <input className="btn btn-outline w-full" value='submit' type="submit" />
           {/* {signupError && <p className='text-red-500'>{signupError.message}</p>} */}
         </form>
         <p>Already have an Account ? <Link to='/login' className="text-white font-bold">Login</Link></p>
+        {signupError && <p className='text-red-500'>{signupError.message}</p>}
         <div className="divider">OR</div>
         <button className="btn btn-outline w-full">Continue With Google</button>
       </div>

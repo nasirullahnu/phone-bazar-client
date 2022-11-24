@@ -14,9 +14,12 @@ const Navbar = () => {
       <li>
         <Link to="/">{date}</Link>
       </li>
-      <li>
-        <Link to="/">{user?.displayName}</Link>
+      {
+        user?.email &&
+        <li>
+        <Link to="/">{user.email}</Link>
       </li>
+      }
       <li>
         <Link to="/">Home</Link>
       </li>
