@@ -22,9 +22,9 @@ const Navbar = () => {
         <Link to="/">{date}</Link>
       </li>
       {
-        user?.email &&
+        user?.displayName &&
         <li>
-        <Link to="/">{user.email}</Link>
+        <Link className="text-orange-300 font-semibold" to="/">{user.displayName}</Link>
       </li>
       }
       <li>
@@ -36,12 +36,17 @@ const Navbar = () => {
       <li>
         <Link to="/blog">Blog</Link>
       </li>
-      <li>
-        <Link to="/login">Log In</Link>
-      </li>
-      <li>
+      
+      {
+        user?.uid?
+        <li>
         <Link onClick={handleLogOut}>Log Out</Link>
       </li>
+      :
+      <li>
+      <Link to="/login">Log In</Link>
+    </li>
+      }
       {/* {user?.uid ? (
          <>
          <li>

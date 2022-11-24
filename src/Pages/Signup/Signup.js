@@ -6,17 +6,26 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
     const {register, formState:{errors},  handleSubmit} = useForm();
-    const {user, createUser} = useContext(AuthContext)
+    const {user, createUser, updateUser} = useContext(AuthContext)
     const [signupError, setSignupError] = useState('')
 
     // sign up with email and password 
     const handleSignUp = data =>{
         console.log(data)
+        setSignupError('');
         createUser(data.email, data.password)
         .then(result => {
             const user = result.user;
             console.log(user)
             toast.success(`account create succesfull by ${user?.email}`)
+            const userInfo = {
+                displayName : data.name,
+                role : data.role
+              }
+              console.log(userInfo)
+              updateUser(userInfo)
+              .then(()=>{})
+              .catch(error => console.error(error))
         })
         .catch(error => {
             console.log(error)
