@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
@@ -15,6 +16,7 @@ const Signup = () => {
         .then(result => {
             const user = result.user;
             console.log(user)
+            toast.success(`account create succesfull by ${user?.email}`)
         })
         .catch(error => {
             console.log(error)

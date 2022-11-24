@@ -5,9 +5,16 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 
 const Navbar = () => {
-  const {user} = useContext(AuthContext)
+  const {user, logOut} = useContext(AuthContext)
   const current = new Date();
   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
+  // log out the current user 
+  const handleLogOut = () => {
+    logOut()
+    .then(()=> {})
+    .catch(error => console.error(error))
+  }
 
   const menuItems = (
     <>
@@ -30,7 +37,10 @@ const Navbar = () => {
         <Link to="/blog">Blog</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link to="/login">Log In</Link>
+      </li>
+      <li>
+        <Link onClick={handleLogOut}>Log Out</Link>
       </li>
       {/* {user?.uid ? (
          <>

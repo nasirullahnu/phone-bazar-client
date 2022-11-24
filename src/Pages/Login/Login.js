@@ -1,11 +1,24 @@
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
     const {register, formState:{errors}, handleSubmit} = useForm()
+    const {logIn} = useContext(AuthContext)
+    const [loginError, setLoginError] = useState('')
 
     const handleLogin = data =>{
         console.log(data)
+        logIn(data.email, data.password)
+      .then(result => {
+        const user = result.user;
+        console.log(user)
+      })
+      .catch(error => {
+        console.log(error)
+        setLoginError(error.message)
+      })
     }
 
 
@@ -38,7 +51,7 @@ const Login = () => {
             </div>
           {/* <p>{data}</p> */}
           <input className="btn btn-outline w-full" value='login' type="submit" />
-          {/* {loginError && <p className="text-red-500">{loginError}</p>} */}
+          {loginError && <p className="text-red-500">{loginError}</p>}
         </form>
         <p>New to Phone Bazar? <Link to='/signup' className="text-white font-bold">Signup</Link></p>
         <div className="divider">OR</div>
