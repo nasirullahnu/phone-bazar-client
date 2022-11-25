@@ -1,40 +1,70 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
 const AddProducts = () => {
     const {register, formState:{errors},  handleSubmit} = useForm();
     // const navigate = useNavigate();
-    const {loading} = useContext(AuthContext)
+    const {loading, user} = useContext(AuthContext)
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
-
+    const imageHostKey = process.env.REACT_APP_imgbb_key;
+    // console.log(imageHostKey)
+    
 
     if(loading){
         return <Loading></Loading>
     }
 
     const handleAddProduct = data => {
-        // console.log(data.title, data.price, data.location, data.phone, data.orgPrice, data.usedTime,
-        //     data.condition, data.category ,data.sellerName, data.sellerEmail , data.description)
-
-
-            const product = {
-                title : data.title,
-                location : data.location,
-                price : data.price,
-                orgPrice : data.orgPrice,
-                used : data.usedTime,
-                postTime : date,
-                category_id : data.category,
-                seller : data.seller,
-                sellerMail : data.sellerEmail,
-                condition : data.condition,
-                phone : data.phone,
-                description : data.description
+        const image = data.image[0]
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?&key=${imageHostKey}`
+        fetch(url,{
+            method : 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(imgData => {
+            console.log(imgData)
+            if(imgData.success){
+                console.log(imgData.data.url)
+                const image = imgData.data.url
+                const product = {
+                    img : image,
+                    title : data.title,
+                    location : data.location,
+                    price : data.price,
+                    orgPrice : data.orgPrice,
+                    used : data.usedTime,
+                    postTime : date,
+                    category_id : data.category,
+                    seller : user.displayName,
+                    sellerMail : user.email,
+                    condition : data.condition,
+                    phone : data.phone,
+                    description : data.description
+                }
+                fetch('http://localhost:5000/products', {
+                    method : 'POST',
+                    headers : {
+                        'content-type' : 'application/json',
+                    },
+                    body : JSON.stringify(product)
+                })
+                .then(res => res.json())
+                .then(result => {
+                    console.log(result)
+                    toast.success('Product added succesfully')
+                })
             }
-            console.log(product)
+        })
+
+
+            
  
     }
 
@@ -81,7 +111,7 @@ const AddProducts = () => {
                     </div>
                     <div className="form-control w-full">
                             <label className="label">
-                                <span className="label-text text-white">Phone</span>
+                                <span className="label-text text-white">Phone Number</span>
                             </label>
                             <input type="text" {...register('phone', {
                                 required : 'your phone number needed',
@@ -116,14 +146,15 @@ const AddProducts = () => {
                     </div>
                 </div>
 
-                {/* seller name and image  */}
-                <div className='grid gap-2 grid-cols-2'>
+               
+                {/* <div className='grid gap-2 grid-cols-2'>
                     <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-white">Your/Seller Name</span>
                             </label>
                             <input type="text" {...register('sellerName', {
-                                required : 'add your Name',
+                                // required : 'add your Name',
+                                defaultValue : {displayName},
                                 placeholder : 'your/seller name'
                             })} className="input input-bordered w-full" /> 
                             {errors.sellerName && <p className='text-white mt-1'>{errors.sellerName.message}</p>} 
@@ -133,12 +164,12 @@ const AddProducts = () => {
                                 <span className="label-text text-white">Your/Seller Email</span>
                             </label>
                             <input type="text" {...register('sellerEmail', {
-                                required : 'your email please' ,
+                                // required : 'your email please' ,
                                 placeholder : 'Provide your email'
                             })} className="input input-bordered w-full" /> 
                             {errors.sellerEmail && <p className='text-white mt-1'>{errors.sellerEmail.message}</p>} 
                     </div>
-                </div>
+                </div> */}
 
                 {/* image and condition  */}
                 <div className='grid gap-2 grid-cols-2'>
@@ -187,7 +218,7 @@ const AddProducts = () => {
                             })} placeholder="Add our product description"></textarea>
                             {errors.description && <p className='text-white mb-4 mt-1 '>{errors.description.message}</p>} 
                 </div>
-          {/* <p>{data}</p> */}
+          <h2 className='text-white my-2'>Your "Seller Name and "Email" will be added automaticly after add this Product</h2>                          
           <input className="btn btn-accent w-full" value='Add Product' type="submit" />
         </form>
         </div>
