@@ -30,6 +30,7 @@ const DashboardLayout = () => {
             <li>
               <Link className="btn btn-info mt-3" to='/dashboard/allUsers'>All Users</Link>
               <Link className="btn btn-info mt-3" to='/dashboard/addProducts'>Add Products</Link>
+              <Link className="btn btn-info mt-3" to='/dashboard/myProducts'>My Products</Link>
             </li>
             
           </ul>
