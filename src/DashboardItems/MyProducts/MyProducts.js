@@ -29,9 +29,9 @@ const MyProducts = () => {
     return (
         <div>
             <h2 className='text-3xl text-white'>You Contribute {products.length} Products </h2>
-            <div className="overflow-x-auto bg-indigo-600">
-                <table className="table w-full my-5 bg-indigo-500">
-                    <thead className='bg-indigo-500'>
+            <div className="overflow-x-auto">
+                <table className="table w-full my-5">
+                    <thead>
                     <tr>
                         <th></th>
                         <th>Image</th>
