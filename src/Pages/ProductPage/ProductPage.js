@@ -15,12 +15,17 @@ const ProductPage = () => {
                     products.map(product => <ProductCard
                     key={product._id}
                     product={product}
-                    
+                    setProduct={setProduct}
                     ></ProductCard>)
                 }
             </div>
 
-                <BookingModal></BookingModal>
+                {product &&
+                    <BookingModal
+                    product={product}
+                    setProduct={setProduct}
+                    ></BookingModal>
+                }
 
         </div>
     );

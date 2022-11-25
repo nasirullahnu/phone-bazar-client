@@ -4,13 +4,14 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const Login = () => {
     const {register, formState:{errors}, handleSubmit} = useForm()
     const googleProvider = new GoogleAuthProvider();
     const location = useLocation();
     const navigate = useNavigate();
-    const {logIn, googleSignin} = useContext(AuthContext)
+    const {logIn, googleSignin, loading} = useContext(AuthContext)
     const [loginError, setLoginError] = useState('')
 
     const from = location.state?.from?.pathname || '/'
@@ -41,6 +42,10 @@ const Login = () => {
         console.log(error)
         setLoginError(error.message)
       })
+    }
+
+    if(loading){
+      return <Loading></Loading>
     }
 
 

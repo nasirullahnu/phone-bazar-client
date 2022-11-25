@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider";
+import Loading from "../../../Shared/Loading/Loading";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const {loading} = useContext(AuthContext)
 
   useEffect(() => {
     fetch("http://localhost:5000/categories")
@@ -12,6 +15,10 @@ const Categories = () => {
         setCategories(data)
       });
   }, []);
+
+  if(loading){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="">

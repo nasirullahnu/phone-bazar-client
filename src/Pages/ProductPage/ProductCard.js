@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Loading from "../../Shared/Loading/Loading";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setProduct }) => {
     const {loading} = useContext(AuthContext)
   console.log(product.title);
   const {_id,
@@ -48,6 +48,7 @@ const ProductCard = ({ product }) => {
           <label 
                 htmlFor="booking-modal" 
                 className="btn btn-outline text-white"
+                onClick={()=> setProduct(product)}
                 >Purchase</label>
         </div>
       </div>

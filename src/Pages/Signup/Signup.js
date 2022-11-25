@@ -4,12 +4,13 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const Signup = () => {
     const {register, formState:{errors},  handleSubmit} = useForm();
     const googleProvider = new GoogleAuthProvider();
     const navigate = useNavigate();
-    const { createUser, updateUser, googleSignin} = useContext(AuthContext);
+    const { createUser, updateUser, googleSignin , loading} = useContext(AuthContext);
     const [signupError, setSignupError] = useState('');
 
 
@@ -68,7 +69,9 @@ const Signup = () => {
         })
       }
 
-
+      if(loading){
+        return <Loading></Loading>
+      }
 
     return (
         <div className="h-[800px] flex justify-center items-center bg-blue-400 mx-8 my-8">

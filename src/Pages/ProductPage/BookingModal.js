@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 
-const BookingModal = () => {
+const BookingModal = ({product, setProduct}) => {
+    const {_id,
+        img, title, location, 
+        price, orgPrice, used, 
+        postTime, seller, sellerMail,
+         condition, phone, description} = product
   const {user} = useContext(AuthContext)
   const current = new Date();
   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
@@ -27,32 +33,32 @@ const BookingModal = () => {
         meeting : meeting,
         product : product,
         price : price,
-        date
+        date, sellerMail,
+        sellerPhone : phone, 
+        productImg: img
     }
     console.log(booking)
 
     
 
-    // fetch('http://localhost:5000/bookings', {
-    //   method : 'POST',
-    //   headers : {
-    //     'content-type' : 'application/json'
-    //   },
-    //   body : JSON.stringify(booking)
-    // })
-    // .then(res => res.json())
-    // .then(data => {
-    //   console.log(data)
-    //   if(data.acknowledged){
-    //   setTreatment(null)
-    //   toast.success('Appointment confirmed')
-    //   refetch();
-    //   }
-    //   else{
-    //     toast.error(data.message)
-    //   }
-    // })
- 
+    fetch('http://localhost:5000/bookings', {
+      method : 'POST',
+      headers : {
+        'content-type' : 'application/json'
+      },
+      body : JSON.stringify(booking)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      if(data.acknowledged){
+        setProduct(null)
+      toast.success('Booking confirmed')
+      }
+      else{
+        toast.error(data.message)
+      }
+    })
     form.reset();
   }
 
@@ -103,15 +109,17 @@ const BookingModal = () => {
             <input
               type="text"
               name="product"
+              defaultValue={title}
               placeholder="Product Name"
-              required
+              readOnly
               className="input input-bordered input-primary w-full"
             />
             <input
               type="text"
               name="price"
               placeholder="Product Price"
-              required
+              defaultValue={price}
+              readOnly
               className="input input-bordered input-primary w-full"
             />
 
