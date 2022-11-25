@@ -10,7 +10,7 @@ const Banner = () => {
           className="max-w-sm rounded-lg shadow-2xl"
         />
         <div className="w-2/4 text-white">
-          <h1 className="text-5xl font-bold">December Sell is ON!!</h1>
+          <h1 className="text-5xl font-bold">Phone Bazar / Resale </h1>
           <p className="py-6">
             December, বছরের শেষ মাস। আর এই শেষ মাসে থাকছে ক্রেতাদের জন্য বিশেষ মূল্য ছাড়।
             তাই দেরি না করে এখনি যুক্ত হোন আমাদের DECEMBER SEELS এ। 

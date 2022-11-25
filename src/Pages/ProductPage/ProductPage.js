@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import BookingModal from './BookingModal';
 import ProductCard from './ProductCard';
 
 const ProductPage = () => {
     const products = useLoaderData();
+    const [product, setProduct] = useState(null)
     console.log(products)
     return (
         <div>
@@ -13,9 +15,13 @@ const ProductPage = () => {
                     products.map(product => <ProductCard
                     key={product._id}
                     product={product}
+                    
                     ></ProductCard>)
                 }
             </div>
+
+                <BookingModal></BookingModal>
+
         </div>
     );
 };

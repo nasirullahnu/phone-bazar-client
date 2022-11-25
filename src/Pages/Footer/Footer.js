@@ -7,9 +7,9 @@ const Footer = () => {
       <footer className="footer p-10 bg-blue-600 text-base-content flex justify-evenly">
         <div className="text-white">
           <span className="footer-title">Items</span>
-          <Link to='/gaming' className="link link-hover">Gaming Phones</Link>
-          <Link to='/button' className="link link-hover">Button Phones</Link>
-          <Link to='/camera' className="link link-hover">Camera Phones</Link>
+          <Link to='/products/gaming' className="link link-hover">Gaming Phones</Link>
+          <Link to='/products/button' className="link link-hover">Button Phones</Link>
+          <Link to='/products/camera' className="link link-hover">Camera Phones</Link>
         </div>
         <div className="text-white">
           <span className="footer-title">Site Information</span>

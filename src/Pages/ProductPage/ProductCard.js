@@ -8,7 +8,8 @@ const ProductCard = ({ product }) => {
   const {_id,
      img, title, location, 
      price, orgPrice, used, 
-     postTime, seller, sellerMail, condition} = product
+     postTime, seller, sellerMail,
+      condition, phone, description} = product
 
      if(loading){
         return <Loading></Loading>
@@ -37,10 +38,17 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="flex mx-0">
             <p>Owner : <span className="font-semibold">{seller}</span></p>
+            <p>Call : <span className="font-semibold">{phone}</span></p>
+        </div>
+        <div className="flex mx-0">
+            <p>Info : <span className="font-semibold text-yellow-400">{description}</span></p>
         </div><hr></hr>
         <div className="card-actions justify-end">
-          <button className="btn btn-outline">Add To Wishlist</button>
-          <button className="btn btn-outline">Buy Now</button>
+          <button className="btn btn-outline text-white">Add To Wishlist</button>
+          <label 
+                htmlFor="booking-modal" 
+                className="btn btn-outline text-white"
+                >Purchase</label>
         </div>
       </div>
     </div>
