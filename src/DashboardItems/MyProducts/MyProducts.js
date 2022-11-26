@@ -1,14 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../Shared/Loading/Loading';
 import { AuthContext } from '../../contexts/AuthProvider';
+import ConfirmModal from '../../Shared/Loading/ConfirmModal/ConfirmModal';
+import toast from 'react-hot-toast';
 
 const MyProducts = () => {
+    const [deletingProduct, setDeletingProduct] = useState(null)
     const {user} = useContext(AuthContext)
+    
+    const closeModal = () => {
+        setDeletingProduct(null)
+    }
+
 
     const url = `http://localhost:5000/products?email=${user?.email}`
-
-    const {data: products =[], isLoading} = useQuery({
+    const {data: products =[], isLoading, refetch} = useQuery({
         queryKey : ['products'],
         queryFn: async() => {
             try{
@@ -21,6 +28,21 @@ const MyProducts = () => {
             }
         }
     })
+
+    const deleteProduct = product => {
+        // console.log(product._id)
+        fetch(`http://localhost:5000/products/${product._id}`,{
+            method : 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.deletedCount > 0){
+                toast.success(`${product.title} deleted succesfully`)
+                refetch();
+            }
+        })
+    }
 
     if(isLoading){
         return <Loading></Loading>
@@ -56,16 +78,30 @@ const MyProducts = () => {
                         <td>{product.title}</td>
                         <td>{product.price}</td>
                         <td>
-                        <label htmlFor="confirmation-modal" className="btn btn-error">Promote</label>
+                        <label htmlFor="delete-modal" className="btn btn-success">Promote</label>
                         </td>
                         <td>
-                        <label htmlFor="confirmation-modal" className="btn btn-error">Delete</label>
+                        <label onClick={()=>setDeletingProduct(product) } htmlFor="delete-modal" className="btn btn-error ">Delete</label>
                         </td>
                     </tr>)
                     }
                     </tbody>
                 </table>
             </div>
+
+                    {
+                    deletingProduct &&
+                    <ConfirmModal
+                    title={`Delete ${deletingProduct.title}?`}
+                    image={deletingProduct.img}
+                    message={`Carefully, It can not be recovered again!`}
+                    closeModal={closeModal}
+                    confirmAction={deleteProduct}
+                    modalData={deletingProduct}
+                    succesButtonName="Confirm"
+                    ></ConfirmModal>
+                    }
+
         </div>
     );
 };
