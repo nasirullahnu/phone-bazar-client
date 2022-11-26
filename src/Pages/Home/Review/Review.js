@@ -16,11 +16,28 @@ const Review = () => {
             reviewerEmail : user.email
         }
         console.log(review)
+        fetch('http://localhost:5000/reviews', {
+            method : 'POST',
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body : JSON.stringify(review)
+        })
+        .then(res => res.json())
+        .then(data => {
+        console.log(data)
+        if(data.acknowledged){
+        toast.success('Thank you for your valuable Review')
+        }
+        else{
+             toast.error(data.message)
+         }
+        })
     }
 
     return (
         <div className='my-10'>
-            <h2 className='text-3xl'>You can add a <span>Review</span></h2>
+            <h2 className='text-3xl'>You can add a <span>Feedback/Review</span></h2>
             <h2>We are very friend for our visitors Review and we always try to imporve</h2>
             <div className='flex justify-center my-5'>
                 <form onSubmit={handleSubmit(addReview)} className='w-1/2'>
