@@ -61,6 +61,10 @@ const router = createBrowserRouter([
                 element : <AllBuyer></AllBuyer>
             },
         ]
+    },
+    {
+        path : '*',
+        element : <div><h1 class="h-[100px] flex justify-center items-center mx-8 my-8 text-3xl text-red-500 font-semibold">There is nothing your are searching for, please try again !!</h1></div>
     }
 
 ])
