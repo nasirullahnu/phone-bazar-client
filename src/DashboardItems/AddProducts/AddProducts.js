@@ -81,7 +81,7 @@ const AddProducts = () => {
                         <label className="label">
                             <span className="label-text text-white">Title</span>
                         </label>
-                        <input type="text" {...register('title',{
+                        <input placeholder='Product Name' type="text" {...register('title',{
                             required : 'you forgot this?',
                             placeholder : 'Product Name'
                         })} className="input input-bordered w-full mr-2" />
@@ -91,7 +91,7 @@ const AddProducts = () => {
                         <label className="label">
                             <span className="label-text text-white">Location</span>
                         </label>
-                        <input type="text" {...register('location',{
+                        <input type="text" placeholder='Product Location' {...register('location',{
                             required : 'location must be added !',
                             placeholder : 'product location'
                         })} className="input input-bordered w-full mr-2" />
@@ -105,9 +105,8 @@ const AddProducts = () => {
                             <label className="label">
                                 <span className="label-text text-white">Price</span>
                             </label>
-                            <input type="text" {...register('price', {
-                                required : 'hey text on me',
-                                placeholder : 'product price'
+                            <input type="text" placeholder='Product Price' {...register('price', {
+                                required : 'hey text on me'
                             })} className="input input-bordered w-full" /> 
                             {errors.price && <p className='text-white mt-1'>{errors.price.message}</p>} 
                     </div>
@@ -115,9 +114,8 @@ const AddProducts = () => {
                             <label className="label">
                                 <span className="label-text text-white">Phone Number</span>
                             </label>
-                            <input type="text" {...register('phone', {
-                                required : 'your phone number needed',
-                                placeholder : 'Your number'
+                            <input type="text" placeholder='Your number' {...register('phone', {
+                                required : 'your phone number needed'
                             })} className="input input-bordered w-full" /> 
                             {errors.phone && <p className='text-white mt-1'>{errors.phone.message}</p>} 
                     </div>
@@ -130,9 +128,8 @@ const AddProducts = () => {
                             <label className="label">
                                 <span className="label-text text-white">Original Price</span>
                             </label>
-                            <input type="text" {...register('orgPrice', {
-                                required : 'please enter original price!',
-                                placeholder : 'original price'
+                            <input type="text" placeholder='Original Price' {...register('orgPrice', {
+                                required : 'please enter original price!'
                             })} className="input input-bordered w-full" /> 
                             {errors.orgPrice && <p className='text-white mt-1'>{errors.orgPrice.message}</p>} 
                     </div>
@@ -140,9 +137,8 @@ const AddProducts = () => {
                             <label className="label">
                                 <span className="label-text text-white">Used Time</span>
                             </label>
-                            <input type="text" {...register('usedTime', {
-                                required : 'fill this',
-                                placeholder : 'কতোদিন ব্যাবহার করেছে?'
+                            <input type="text" placeholder='কতোদিন ব্যাবহার করেছে?' {...register('usedTime', {
+                                required : 'fill this'
                             })} className="input input-bordered w-full" /> 
                             {errors.usedTime && <p className='text-white mt-1'>{errors.usedTime.message}</p>} 
                     </div>

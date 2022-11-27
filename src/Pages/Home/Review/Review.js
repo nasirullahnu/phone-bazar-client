@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Review = () => {
     const {register, formState:{errors},  handleSubmit} = useForm();
     const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const addReview = data => {
         console.log(data.review)
@@ -27,6 +28,7 @@ const Review = () => {
         .then(data => {
         console.log(data)
         if(data.acknowledged){
+            navigate('/')
         toast.success('Thank you for your valuable Review')
         }
         else{
@@ -37,8 +39,12 @@ const Review = () => {
 
     return (
         <div className='my-10'>
-            <h2 className='text-3xl'>You can add a <span>Feedback/Review</span></h2>
-            <h2>We are very friend for our visitors Review and we always try to imporve</h2>
+            <div className='flex justify-center'>
+                <div>
+                    <h2 className='text-3xl'>You can add a <span>Feedback/Review</span></h2>
+                    <h2>We are very friend for our visitors Review and we always try to imporve</h2>
+                </div>
+            </div>
             <div className='flex justify-center my-5'>
                 <form onSubmit={handleSubmit(addReview)} className='w-1/2'>
                     <div className="form-control w-full">

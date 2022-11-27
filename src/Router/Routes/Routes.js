@@ -6,6 +6,7 @@ import MyOrders from "../../DashboardItems/MyOrders/MyOrders";
 import MyProducts from "../../DashboardItems/MyProducts/MyProducts";
 import DashboardLayout from "../../Layouts/DashboadrLayout/DashboardLayout";
 import Main from "../../Layouts/Main/Main";
+import Blog from "../../Pages/Home/Blog/Blog";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import ProductPage from "../../Pages/ProductPage/ProductPage";
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
                 path : '/products/:id',
                 loader : ({params}) => fetch(`http://localhost:5000/products/${params.id}`),
                 element : <PrivateRoute><ProductPage></ProductPage></PrivateRoute>
+            },
+            {
+                path : '/blog',
+                element : <Blog></Blog>
             }
         ]
     },

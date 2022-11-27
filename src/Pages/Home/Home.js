@@ -1,5 +1,6 @@
 import React from 'react';
 import Banner from './Banner/Banner';
+import Blog from './Blog/Blog';
 import Categories from './Categories/Categories';
 import Review from './Review/Review';
 
