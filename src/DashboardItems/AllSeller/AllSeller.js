@@ -48,10 +48,17 @@ const AllSeller = () => {
     console.log(id)
     fetch(`http://localhost:5000/allUsers/${id}`, {
       method : 'PUT',
+      headers : {
+        authorization : `bearer ${localStorage.getItem('accessToken')}`
+      }
     })
     .then(res => res.json())
     .then(data => {
       console.log(data)
+      if(data.modifiedCount > 0){
+        toast.success('seller is VERIFIED now')
+        refetch()
+      }
     })
   }
 
@@ -83,7 +90,14 @@ const AllSeller = () => {
                 <td>{seller.name}</td>
                 <td>{seller.email}</td>
                 <td>
-                <label onClick={()=> verifySeller(seller._id)} htmlFor="delete-user" className="btn btn-info ">Verify Seller</label>
+                  {
+                    seller.status !== 'verified' &&
+                    <label onClick={()=> verifySeller(seller._id)} htmlFor="delete-user" className="btn btn-info ">Verify Seller</label>
+                  }
+                  {
+                    seller.status === 'verified' &&
+                    <p>Seller is Verified</p>
+                  }
                 </td>
                 <td>
                 <label onClick={()=> setDeletingSeller(seller)} htmlFor="delete-user" className="btn btn-error ">Delete</label>
