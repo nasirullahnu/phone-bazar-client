@@ -18,7 +18,11 @@ const MyOrders = () => {
         queryKey : ['bookings'],
         queryFn: async() => {
             try{
-                const res = fetch(url);
+                const res = fetch(url, {
+                    headers : {
+                        authorization : `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
                 const data = await (await res).json();
                 return data;
             }
