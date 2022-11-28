@@ -43,6 +43,18 @@ const AllSeller = () => {
         })
   }
 
+  // verify seller 
+  const verifySeller = id => {
+    console.log(id)
+    fetch(`http://localhost:5000/allUsers/${id}`, {
+      method : 'PUT',
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    })
+  }
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -70,7 +82,9 @@ const AllSeller = () => {
                 <th>{i+1}</th>
                 <td>{seller.name}</td>
                 <td>{seller.email}</td>
-                <td>Admin</td>
+                <td>
+                <label onClick={()=> verifySeller(seller._id)} htmlFor="delete-user" className="btn btn-info ">Verify Seller</label>
+                </td>
                 <td>
                 <label onClick={()=> setDeletingSeller(seller)} htmlFor="delete-user" className="btn btn-error ">Delete</label>
                 </td>
