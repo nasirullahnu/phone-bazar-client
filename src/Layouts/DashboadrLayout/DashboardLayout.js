@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useAdmin from '../../Hooks/useAdmin/useAdmin';
+import useSeller from '../../Hooks/useSeller/useSeller';
 import Footer from '../../Pages/Footer/Footer';
 import Navbar from '../../Pages/Navbar/Navbar';
 import Loading from '../../Shared/Loading/Loading';
@@ -9,6 +10,7 @@ import Loading from '../../Shared/Loading/Loading';
 const DashboardLayout = () => {
     const {loading, user} = useContext(AuthContext);
     const [isAdmin] = useAdmin(user?.email)
+    const [isSeller] = useSeller(user?.email)
 
     if(loading){
         return <Loading></Loading>
@@ -30,8 +32,12 @@ const DashboardLayout = () => {
               <Link className="btn btn-info mt-3" to='/dashboard'>My Orders</Link>
             </li>
             <li>
-              <Link className="btn btn-info mt-3" to='/dashboard/addProducts'>Add Products</Link>
-              <Link className="btn btn-info mt-3" to='/dashboard/myProducts'>My Products</Link>
+              {
+                isSeller && <>
+                  <Link className="btn btn-info mt-3" to='/dashboard/addProducts'>Add Products</Link>
+                  <Link className="btn btn-info mt-3" to='/dashboard/myProducts'>My Products</Link>
+                </>
+              }
               {
                 isAdmin && <>
                   <Link className="btn btn-info mt-3" to='/dashboard/allSeller'>All Seller</Link>
