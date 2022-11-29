@@ -26,7 +26,7 @@ const Categories = () => {
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
       {
         categories.map(category => <div 
-        key={category._id} 
+        key={category._id}
         className="card shadow-xl bg-indigo-500">
         <figure className="px-10 pt-10">
           <img
