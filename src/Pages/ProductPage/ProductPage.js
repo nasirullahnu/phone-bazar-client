@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import BookingModal from './BookingModal';
 import ProductCard from './ProductCard';
+import ReportModal from './ReportModal';
 
 const ProductPage = () => {
     const products = useLoaderData();
@@ -25,6 +26,14 @@ const ProductPage = () => {
                     product={product}
                     setProduct={setProduct}
                     ></BookingModal>
+                }
+
+                {
+                    product && 
+                    <ReportModal
+                    product={product}
+                    setProduct={setProduct}
+                    ></ReportModal>
                 }
 
         </div>

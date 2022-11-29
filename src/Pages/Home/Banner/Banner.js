@@ -1,4 +1,6 @@
 import React from "react";
+import img from '../../../assets/banner/banner1.jpg'
+import img2 from '../../../assets/banner/banner2.jpg'
 
 const Banner = () => {
   return (
@@ -6,8 +8,8 @@ const Banner = () => {
       <div className="hero-content flex-col lg:flex-row">
         <img
           alt="banner"
-          src="https://placeimg.com/260/400/arch"
-          className="max-w-sm rounded-lg shadow-2xl"
+          src={img2}
+          className=" rounded-lg shadow-2xl"
         />
         <div className="w-2/4 text-white">
           <h1 className="text-5xl font-bold">Phone Bazar / Resale </h1>

@@ -44,12 +44,18 @@ const ProductCard = ({ product, setProduct }) => {
             <p>Info : <span className="font-semibold text-yellow-400">{description}</span></p>
         </div><hr></hr>
         <div className="card-actions justify-end">
-          <button className="btn btn-outline text-white">Report</button>
+          <label 
+                htmlFor="report-modal" 
+                className="btn btn-outline text-yellow-400"
+                onClick={()=> setProduct(product)}
+                >Report
+          </label>
           <label 
                 htmlFor="booking-modal" 
                 className="btn btn-outline text-white"
                 onClick={()=> setProduct(product)}
-                >Purchase</label>
+                >Purchase
+          </label>
         </div>
       </div>
     </div>
