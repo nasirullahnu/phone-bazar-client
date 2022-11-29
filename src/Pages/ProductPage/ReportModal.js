@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const ReportModal = ({ product, setProduct }) => {
+    const {title, _id, img, seller, sellerMail} = product
+    const {user} = useContext(AuthContext)
+
     const {register, formState:{errors}, handleSubmit} = useForm()
 
     const reportAdmin = data => {
         // console.log(data.report)
         const report = {
-            report : data.report
+            report : data.report,
+            reporter : user.displayName,
+            reporterEmail : user.email,
+            productName : title,
+            productImg : img,
+            productSeller : seller,
+            productSellerMail : sellerMail,
+            productId : _id
         } 
         console.log(report)
         
@@ -33,7 +44,6 @@ const ReportModal = ({ product, setProduct }) => {
 
     }
 
-  const { title, seller, sellerMail } = product;
   return (
     <div>
       <input type="checkbox" id="report-modal" className="modal-toggle" />
