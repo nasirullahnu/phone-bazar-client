@@ -17,7 +17,7 @@ const Review = () => {
             reviewerEmail : user.email
         }
         console.log(review)
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://phone-server-ten.vercel.app/reviews', {
             method : 'POST',
             headers : {
                 'content-type' : 'application/json'

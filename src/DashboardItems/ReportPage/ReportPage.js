@@ -12,7 +12,7 @@ const ReportPage = () => {
         setDeletingReview(null)
     }
 
-    const url = `http://localhost:5000/reports`
+    const url = `https://phone-server-ten.vercel.app/reports`
     const {data: reportedItems =[], isLoading, refetch} = useQuery({
         queryKey : ['reports'],
         queryFn: async() => {
@@ -29,7 +29,7 @@ const ReportPage = () => {
 
     const deleteReport = data => {
         console.log(data)
-        fetch(`http://localhost:5000/reports/${data._id}`, {
+        fetch(`https://phone-server-ten.vercel.app/reports/${data._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

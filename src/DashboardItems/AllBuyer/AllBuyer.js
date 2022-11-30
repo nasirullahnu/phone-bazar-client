@@ -11,7 +11,7 @@ const AllBuyer = () => {
         setDeletingBuyer(null)
     }
 
-  const url = `http://localhost:5000/buyers?role=buyer`;
+  const url = `https://phone-server-ten.vercel.app/buyers?role=buyer`;
   const { data: buyers = [], refetch, isLoading } = useQuery({
     queryKey: ["buyers"],
     queryFn: async () => {
@@ -26,7 +26,7 @@ const AllBuyer = () => {
 
   const deleteBuyer = buyer => {
     console.log(buyer)
-    fetch(`http://localhost:5000/buyers/${buyer._id}`,{
+    fetch(`https://phone-server-ten.vercel.app/buyers/${buyer._id}`,{
             method : 'DELETE'
         })
         .then(res => res.json())

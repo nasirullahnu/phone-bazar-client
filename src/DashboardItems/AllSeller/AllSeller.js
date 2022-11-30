@@ -11,7 +11,7 @@ const AllSeller = () => {
     setDeletingSeller(null);
   };
 
-  const url = `http://localhost:5000/sellers?role=seller`;
+  const url = `https://phone-server-ten.vercel.app/sellers?role=seller`;
   const {
     data: sellers = [],
     refetch,
@@ -29,7 +29,7 @@ const AllSeller = () => {
 
   const deleteSeller = (seller) => {
     console.log(seller);
-    fetch(`http://localhost:5000/sellers/${seller._id}`, {
+    fetch(`https://phone-server-ten.vercel.app/sellers/${seller._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -45,7 +45,7 @@ const AllSeller = () => {
   // verify seller
   const verifySeller = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/allUsers/${id}`, {
+    fetch(`https://phone-server-ten.vercel.app/allUsers/${id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,

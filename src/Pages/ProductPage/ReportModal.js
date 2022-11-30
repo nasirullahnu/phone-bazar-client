@@ -23,7 +23,7 @@ const ReportModal = ({ product, setProduct }) => {
         } 
         console.log(report)
         
-        fetch('http://localhost:5000/reports', {
+        fetch('https://phone-server-ten.vercel.app/reports', {
             method : 'POST',
             headers : {
                 'content-type' : 'application/json'

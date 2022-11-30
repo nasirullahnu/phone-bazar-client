@@ -49,7 +49,7 @@ const AddProducts = () => {
                     phone : data.phone,
                     description : data.description
                 }
-                fetch('http://localhost:5000/products', {
+                fetch('https://phone-server-ten.vercel.app/products', {
                     method : 'POST',
                     headers : {
                         'content-type' : 'application/json',

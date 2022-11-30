@@ -14,7 +14,7 @@ const MyProducts = () => {
     }
 
 
-    const url = `http://localhost:5000/products?email=${user?.email}`
+    const url = `https://phone-server-ten.vercel.app/products?email=${user?.email}`
     const {data: products =[], isLoading, refetch} = useQuery({
         queryKey : ['products'],
         queryFn: async() => {
@@ -31,7 +31,7 @@ const MyProducts = () => {
 
     const deleteProduct = product => {
         // console.log(product._id)
-        fetch(`http://localhost:5000/products/${product._id}`,{
+        fetch(`https://phone-server-ten.vercel.app/products/${product._id}`,{
             method : 'DELETE'
         })
         .then(res => res.json())

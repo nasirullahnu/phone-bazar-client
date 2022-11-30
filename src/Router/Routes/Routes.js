@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path : '/products/:id',
-                loader : ({params}) => fetch(`http://localhost:5000/products/${params.id}`),
+                loader : ({params}) => fetch(`https://phone-server-ten.vercel.app/products/${params.id}`),
                 element : <PrivateRoute><ProductPage></ProductPage></PrivateRoute>
             },
             {

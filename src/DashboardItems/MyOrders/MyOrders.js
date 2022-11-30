@@ -13,7 +13,7 @@ const MyOrders = () => {
         setDeleteOrder(null)
     }
 
-    const url = `http://localhost:5000/bookings?email=${user?.email}`
+    const url = `https://phone-server-ten.vercel.app/bookings?email=${user?.email}`
     const {data: bookings =[], isLoading, refetch} = useQuery({
         queryKey : ['bookings'],
         queryFn: async() => {
@@ -34,7 +34,7 @@ const MyOrders = () => {
 
     const cancelOrder = booking =>{
         console.log(booking)
-        fetch(`http://localhost:5000/bookings/${booking._id}`,{
+        fetch(`https://phone-server-ten.vercel.app/bookings/${booking._id}`,{
             method : 'DELETE'
         })
         .then(res => res.json())
